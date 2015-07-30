@@ -1,0 +1,11 @@
+{
+  "name": "ui-dev-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "devDependencies": {
+    "gulp": "",
+    "gulp-connect": "",
+    "gulp-less": ""
+  },
+  "private": true
+}
