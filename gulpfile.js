@@ -1,14 +1,16 @@
 var gulp = require('gulp'),
     less = require('gulp-less'),
     connect = require('gulp-connect'),
-    path = require('path');
+    path = require('path'),
+    plumber = require('gulp-plumber');
 
-var lessFiles = ['**/*.less', '!node_modules/**/*.*'];
+var lessFiles = ['**/*.less', '!node_modules/**/*.*', '!reset.less'];
 var cssFiles = ['**/*.css', '!node_modules/**/*.*'];
 var htmlFiles = ['**/*.html', '!node_modules/**/*.*'];
 
 gulp.task('less', function() {
   gulp.src(lessFiles)
+    .pipe(plumber())
     .pipe(less())
     .pipe(gulp.dest('./'));
 });
@@ -36,4 +38,4 @@ gulp.task('watch', function () {
   gulp.watch(htmlFiles, ['html']);
 });
 
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['connect', 'less', 'watch']);
