@@ -25,12 +25,32 @@
   line-height: 20px;
 }
 
-@sidebarWidth: 200px;
+.medium(@rules) {
+ @media(min-width: 550px) and (max-width: 799px) {
+    @rules();  
+  } 
+}
+
+.smallMedium(@rules) {
+ @media(max-width: 799px) {
+    @rules();  
+  } 
+}
+
+.large(@rules) {
+  @media(min-width: 800px) {
+    @rules();  
+  }
+}
+
+@desktopSidebarWidth: 200px;
 @standardPadding: 15px;
 
 body {
   background: #888;
-  padding: @standardPadding;
+  .large({
+    padding: @standardPadding;
+  });
 }
 
 .container {
@@ -42,11 +62,22 @@ body {
 }
 
 .sidebar {
-  position: relative;
-  width: @sidebarWidth;
   background: black;
-  float: left;
-  margin-right: -@sidebarWidth;
+  
+  .large({
+    position: relative;
+    float: left;
+    margin-right: -@desktopSidebarWidth;
+    width: @desktopSidebarWidth;
+  });
+
+  .smallMedium({
+    padding: @standardPadding/2 0;
+  });
+
+  .medium({
+    .clearfix();
+  });
 }
 
 .sidebar__link {
@@ -55,8 +86,21 @@ body {
   color: @color;
   display: block;
   line-height: 15px;
-  padding: @standardPadding;
   text-decoration: none;
+
+  .large({
+    padding: @standardPadding;
+  });
+
+  .smallMedium({
+    padding: @standardPadding/2 @standardPadding;
+  });
+
+  .medium({
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+  });
 
   &.-active {
     background: #555;
@@ -68,10 +112,12 @@ body {
 }
 
 .content {
-  float: left;
-  border-left: @sidebarWidth solid black;
-  box-sizing: border-box;
-  padding: 0 @standardPadding;
+  padding: @standardPadding;  
+
+  .large({
+    border-left: @desktopSidebarWidth solid black;
+    float: left;
+  });
 }
 
 .content__heading {
